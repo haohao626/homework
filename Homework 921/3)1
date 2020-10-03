@@ -1,0 +1,9 @@
+var n;
+function Hanoi(n){
+	if(n===1)
+  	return 1;
+  else
+   return 2*Hanoi(n-1)+1;
+}
+
+document.write(Hanoi(3));

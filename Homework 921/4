@@ -1,0 +1,14 @@
+var ans=sortNumber(4,3,2,1);
+
+function sortNumber(){
+	var i;
+  var arr=[];
+  //var min;
+  for(i = 0 ; i < arguments.length ;i++){
+   		arr.push(arguments[i]);
+   }
+   
+  arr.sort();
+  return arr;
+} 
+  document.write(ans);
