@@ -98,38 +98,38 @@ function init() {
 
 function readModel (modelName, targetSize=40) {
 
-  var onProgress = function(xhr) {
-    if (xhr.lengthComputable) {
-      var percentComplete = xhr.loaded / xhr.total * 100;
-      console.log(Math.round(percentComplete, 2) + '% downloaded');
-    }
-  };
+	var onProgress = function(xhr) {
+		if (xhr.lengthComputable) {
+			var percentComplete = xhr.loaded / xhr.total * 100;
+			console.log(Math.round(percentComplete, 2) + '% downloaded');
+		}
+	};
 
-  var onError = function(xhr) {};
+	var onError = function(xhr) {};
 
-  var mtlLoader =  new MTLLoader();
-  mtlLoader.setPath('models/');
-  mtlLoader.load(modelName+'.mtl', function(materials) {
+	var mtlLoader =  new MTLLoader();
+	mtlLoader.setPath('models/');
+	mtlLoader.load(modelName+'.mtl', function(materials) {
 
-    materials.preload();
+		materials.preload();
 
-    var objLoader =  new OBJLoader();
-    objLoader.setMaterials(materials);
-    objLoader.setPath('models/');
-    objLoader.load(modelName+'.obj', function(object) {
-		
-		let t =  unitize (object, targetSize);
-		t.name = 'OBJ'
-		t.position.y = 8;
-		
-		group = new THREE.Object3D();
-		group.add(t);
-		
-		scene.add (group);
+		var objLoader =  new OBJLoader();
+		objLoader.setMaterials(materials);
+		objLoader.setPath('models/');
+		objLoader.load(modelName+'.obj', function(object) {
 
-    }, onProgress, onError);
+			let t =  unitize (object, targetSize);
+			t.name = 'OBJ'
+			t.position.y = 8;
 
-  });
+			group = new THREE.Object3D();
+			group.add(t);
+
+			scene.add (group);
+
+		}, onProgress, onError);
+
+	});
 
 }
 
@@ -239,8 +239,16 @@ function onDocumentMouseDown(event) {
 			var p23 = point[next].clone().sub(point[now]);   // p23 = p3 - p2
 			theta2 = Math.atan2 (p23.x, p23.z);
 
-			dq = 0.2; 
+			dq = 0.06; 
+			if (theta2 < 0) {
+				theta2 += Math.PI * 2;
+			}
 
+			if (theta1 <  0) {
+				theta1 += Math.PI * 2;
+			}
+			
+			
 			if(theta1 > theta2){
 				if(theta1 - Math.PI > theta2){
 					steps = Math.floor ((Math.PI * 2 - (theta1-theta2))/dq);
@@ -264,15 +272,15 @@ function onDocumentMouseDown(event) {
 			moveTo = theta1;
 			
 			
-			  var point2 = [];
-			  for(let i = 0; i < point.length; i++)
-			  point2.push(point[i]);
-			  point2.push(new THREE.Vector3());
-			  
-			  var geometry = new THREE.BufferGeometry().setFromPoints(point2);
-			  var material = new THREE.LineBasicMaterial({ color : 0x000000});
-			  line = new THREE.Line(geometry,material);
-			  scene.add(line);
+			var point2 = [];
+			for(let i = 0; i < point.length; i++)
+			point2.push(point[i]);
+			point2.push(new THREE.Vector3());
+
+			var geometry = new THREE.BufferGeometry().setFromPoints(point2);
+			var material = new THREE.LineBasicMaterial({ color : 0xffff00});
+			line = new THREE.Line(geometry,material);
+			scene.add(line);
 		}
 	}
 }
@@ -316,8 +324,16 @@ function running(){//直走
 		var p23 = point[next].clone().sub(point[now]);   // p23 = p3 - p2
 		theta2 = Math.atan2 (p23.x, p23.z);
 
-		dq = 0.2;
-
+		dq = 0.06;
+		
+		if (theta2 < 0) {
+			theta2 += Math.PI * 2;
+		}
+	  
+		if (theta1 <  0) {
+			theta1 += Math.PI * 2;
+		}
+		
 		if(theta1 > theta2){
 			if(theta1 - Math.PI > theta2){
 				steps = Math.floor ((Math.PI * 2 - (theta1-theta2))/dq);
@@ -338,7 +354,7 @@ function running(){//直走
 			}
 		}
 		stepNum = 0;
-		moveTo = theta1- Math.PI/2;
+		moveTo = theta1;
 	}
 
 	else 
