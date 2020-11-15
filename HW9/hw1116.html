@@ -96,7 +96,7 @@ function init() {
 	
 }
 
-function readModel (modelName, targetSize=40) {
+function readModel (modelName, targetSize=20) {
 
 	var onProgress = function(xhr) {
 		if (xhr.lengthComputable) {
@@ -120,7 +120,7 @@ function readModel (modelName, targetSize=40) {
 
 			let t =  unitize (object, targetSize);
 			t.name = 'OBJ'
-			t.position.y = 8;
+			t.position.y = 4.5;
 
 			group = new THREE.Object3D();
 			group.add(t);
