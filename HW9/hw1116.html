@@ -45,7 +45,7 @@ var raycaster;
 var mouse = new THREE.Vector2();
 var pickables = [];
 //
-var base, bases = [],x,line;
+var base, bases = [],num,line;
 var myLine = null;
 var turn = false;
 
@@ -105,7 +105,7 @@ function readModel (modelName, targetSize=40) {
 		}
 	};
 
-	var onError = function(xhr) {};
+	var onError = function(xhr) {}; 
 
 	var mtlLoader =  new MTLLoader();
 	mtlLoader.setPath('models/');
@@ -161,7 +161,7 @@ function unitize (object, targetSize) {
 function whichButton(event) {
 
   //alert("You pressed button: " + event.button);
-   x = event.buttons;
+   num = event.buttons;
    return false;
 }
 
@@ -205,11 +205,11 @@ function onDocumentMouseDown(event) {
 	// find intersections
 	raycaster.setFromCamera(mouse, camera);
 	var intersects = raycaster.intersectObjects(pickables);
-	if (intersects.length > 0 && x != 2) {
+	if (intersects.length > 0 && num != 2) {
 	
 	whichButton(event);
 	
-	if(x == 1){// 左鍵
+	if(num == 1){// 左鍵
 	
 		point.push(intersects[0].point);
 		let bb = base.clone();
@@ -226,7 +226,7 @@ function onDocumentMouseDown(event) {
 		}
 	} 
 	
-	if(x == 2){ //初始化
+	if(num == 2){ //初始化
 			now = 0;
 			next = 1;
 			front = point.length - 1; 
