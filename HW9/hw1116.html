@@ -239,7 +239,7 @@ function onDocumentMouseDown(event) {
 			var p23 = point[next].clone().sub(point[now]);   // p23 = p3 - p2
 			theta2 = Math.atan2 (p23.x, p23.z);
 
-			dq = 0.06; 
+			dq = 0.2; 
 			if (theta2 < 0) {
 				theta2 += Math.PI * 2;
 			}
@@ -324,7 +324,7 @@ function running(){//直走
 		var p23 = point[next].clone().sub(point[now]);   // p23 = p3 - p2
 		theta2 = Math.atan2 (p23.x, p23.z);
 
-		dq = 0.06;
+		dq = 0.2;
 		
 		if (theta2 < 0) {
 			theta2 += Math.PI * 2;
